@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
-from database import get_async_session
+from settings.database import get_async_session
 from src.currency.schemas import ShowCurrency, LastPriceCurrency
 from src.currency.optional import CurrencyAction
 

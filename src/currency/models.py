@@ -3,7 +3,7 @@ from datetime import date
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import String, Table, Column, Date, MetaData
 from sqlalchemy.orm import Mapped, mapped_column
-from database import Base
+from settings.database import Base
 
 
 metadata = MetaData()

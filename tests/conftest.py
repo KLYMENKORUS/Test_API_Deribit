@@ -5,7 +5,7 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import create_async_engine,\
     async_sessionmaker, AsyncSession
 from sqlalchemy.pool import NullPool
-from database import DATABASE_URL_TEST, get_async_session
+from settings.database import DATABASE_URL_TEST, get_async_session
 from main import app
 from src.currency.models import metadata
 

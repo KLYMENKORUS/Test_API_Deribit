@@ -6,7 +6,7 @@ from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 from src.currency.dals import CurrencyDAL
-from database import async_session_maker
+from settings.database import async_session_maker
 from src.currency.models import Currency
 from src.currency.schemas import ShowCurrency, LastPriceCurrency
 

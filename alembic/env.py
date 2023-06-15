@@ -4,7 +4,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from config import DB_NAME, DB_PASS, DB_PORT, DB_HOST, DB_USER
+from settings.config import DB_NAME, DB_PASS, DB_PORT, DB_HOST, DB_USER
 from src.currency.models import metadata
 
 # this is the Alembic Config object, which provides
