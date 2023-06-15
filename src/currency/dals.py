@@ -1,6 +1,6 @@
 from datetime import date
 from typing import List
-from sqlalchemy import select
+from sqlalchemy import select, desc
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.currency.models import Currency
 
@@ -26,7 +26,7 @@ class CurrencyDAL:
 
     async def get_currency(self, currency: str) -> Currency | None:
         """Get currency by name"""
-        query = select(Currency).where(Currency.currency_ticker == currency)
+        query = select(Currency).filter_by(currency_ticker=currency)
 
         result = await self.db_session.execute(query)
         all_currency = result.fetchone()
@@ -36,7 +36,7 @@ class CurrencyDAL:
     async def get_all_by_currency(self, currency: str) -> List[Currency] | None:
         """Retrieve all saved data for the specified currency"""
 
-        query = select(Currency).where(Currency.currency_ticker == currency)
+        query = select(Currency).filter_by(currency_ticker=currency)
 
         result = await self.db_session.execute(query)
         all_currency = result.fetchall()
@@ -46,8 +46,8 @@ class CurrencyDAL:
 
     async def get_last_price_currency(self, currency: str) -> Currency | None:
         """Returns the last price currency"""
-        query = select(Currency).where(Currency.currency_ticker == currency)\
-            .order_by(Currency.current_price.desc()).limit(1)
+        query = select(Currency).filter_by(currency_ticker=currency).\
+            order_by(desc(Currency.current_price)).limit(1)
 
         result = await self.db_session.execute(query)
         last_price = result.fetchone()
@@ -57,8 +57,8 @@ class CurrencyDAL:
     async def get_price_curr_filter_by_date(
             self, currency: str, timestamp: date) -> Currency | None:
         """Getting the price of a currency with a filter by date"""
-        query = select(Currency).where(
-            Currency.currency_ticker == currency).filter(Currency.created_at == timestamp).limit(1)
+        query = select(Currency).filter_by(currency_ticker=currency, created_at=timestamp).\
+            order_by(desc(Currency.current_price)).limit(1)
 
         result = await self.db_session.execute(query)
         get_currency = result.fetchone()
